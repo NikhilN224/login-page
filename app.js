@@ -29,7 +29,6 @@ app.use(session({
 
 
 app.get('/',(req,res)=>{
-    // console.log(req.body,'........')
     if(req.session.isAuth){
         res.redirect('/home')
     }else{
@@ -41,7 +40,6 @@ app.get('/',(req,res)=>{
 app.get('/login',(req,res)=>{
     if(req.session.isAuth){
         res.redirect('/home')
-
     }else{
         const message = req.session.error
         res.render('login',{msg:message})
@@ -51,10 +49,7 @@ app.get('/login',(req,res)=>{
 const data = { user:'nikhil' , pass: '1234'}
 
 app.post('/login',(req,res)=>{  
-    
-    //  console.log(req.body)
     if( data.user === req.body.name && data.pass === req.body.password){
-        // res.render('home',{myName : req.body.name})
         req.session.isAuth = true;
         res.redirect('/') 
     }else{
@@ -70,8 +65,8 @@ app.get('/home',(req,res)=>{
         res.redirect('/')
     }
 })
+
 app.get('/logout',(req,res)=>{
      req.session.destroy()
-    //  console.log(data.user);
-     res.redirect('/')
+     res.redirect('/');
 })
